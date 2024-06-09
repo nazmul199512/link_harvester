@@ -25,7 +25,6 @@ Before you begin, ensure you have the following installed on your local machine:
 - Composer
 
 
-   ```bash
 ## Getting Started
 
 ### Clone the Repository
