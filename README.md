@@ -24,9 +24,6 @@ Before you begin, ensure you have the following installed on your local machine:
 - Docker
 - Composer
 
-### Installation Steps
-
-1. **Clone the repository:**
 
    ```bash
 ## Getting Started
