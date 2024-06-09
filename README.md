@@ -49,3 +49,87 @@ Accessing the Application
 Web Application: The Laravel application will be accessible at http://localhost:8000.
 Web Server: The Nginx web server will be accessible at http://localhost:8080.
 MySQL Database: MySQL will be running on port 3306.
+
+Services
+`app`
+Image: link-harvester-app
+Ports: 8000:9000
+Volumes: ./:/var/www/html
+Environment File: .env
+Depends On: db
+
+`db`
+Image: mysql:8.0.36
+Ports: 3306:3306
+Environment File: .env
+
+`webserver`
+Image: nginx:alpine
+Ports: 8080:80, 443:443
+Volumes: ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+Depends On: app
+Container Name: webserver
+Restart Policy: unless-stopped
+TTY: true
+
+`scheduler`
+Image: link-harvester-scheduler
+Volumes: ./:/var/www/html
+Environment File: .env
+Depends On: db
+
+
+
+
+Dockerfile
+The Dockerfile sets up the PHP 8.2 environment with necessary extensions and dependencies for running a Laravel application.
+
+
+Key Points
+Base Image: php:8.2-fpm
+Work Directory: /var/www/html
+Installed Packages: git, unzip, libpq-dev, libjpeg-dev, libpng-dev, libfreetype6-dev, libonig-dev, libxml2-dev, libzip-dev, zip, sudo, supervisor
+PHP Extensions: pdo, pdo_mysql, mysqli, gd, mbstring, zip, exif, pcntl, bcmath, opcache
+User: appuser
+Composer: Installed globally
+Exposed Port: 9000
+Commands:
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["php-fpm"]
+
+Composer.json
+The composer.json file contains the configuration for the Laravel 11 project.
+
+Key Dependencies
+PHP: ^8.2
+Laravel Framework: ^11.0
+Laravel Tinker: ^2.9
+Dev Dependencies
+Faker PHP: ^1.23
+Laravel Pint: ^1.13
+Laravel Sail: ^1.26
+Mockery: ^1.6
+Nunomaduro Collision: ^8.0
+PHPUnit: ^10.5
+Spatie Laravel Ignition: ^2.4
+
+Autoloading
+PSR-4:
+"App\\": "app/"
+"Database\\Factories\\": "database/factories/"
+"Database\\Seeders\\": "database/seeders/"
+
+Scripts
+
+Post Autoload Dump:
+"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
+"@php artisan package:discover --ansi"
+
+Post Update Command:
+"@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+
+Post Root Package Install:
+"@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+Post Create Project Command:
+"@php artisan key:generate --ansi"
+"@php artisan migrate --ansi"
