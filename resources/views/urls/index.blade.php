@@ -5,8 +5,8 @@
     <div class="bg-white rounded-lg shadow-md">
         <div class="bg-primary text-white py-4 px-6 rounded-t-lg flex justify-between items-center">
             <h2 class="text-2xl font-bold">Manage URLs</h2>
-            <a href="{{ route('urls.add') }}" class="btn-primary py-2 px-4 rounded-lg">Add URL</a>
-        </div>
+            <a href="{{ route('urls.add') }}" class="btn-primary py-2 px-4 rounded-lg" style="color: black; font-weight: bold;">Add URL</a>
+            </div>
         <div class="p-6">
             <div class="flex flex-wrap mb-6 items-end">
                 <div class="w-full md:w-1/3 mb-4 md:mb-0">
@@ -47,7 +47,7 @@
             </div>
 
             <div class="flex justify-between mt-6">
-                <a href="{{ route('urls.add') }}" class="btn-primary py-2 px-4 rounded-lg">Add URL</a>
+                <!-- <a href="{{ route('urls.add') }}" class="btn-primary py-2 px-4 rounded-lg">Add URL</a> -->
                 {{ $urls->links() }}
             </div>
         </div>

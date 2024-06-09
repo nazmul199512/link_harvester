@@ -50,7 +50,6 @@ class UrlController extends Controller
     
             $urlsString = str_replace("\\n", "\n", trim($request->input('urls')));
             $urls = explode("\n", $urlsString);
-            Log::info($urls);
             foreach ($urls as $url) {
                 ProcessUrlJob::dispatch($url);
             }
