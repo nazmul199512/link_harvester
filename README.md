@@ -29,4 +29,23 @@ Before you begin, ensure you have the following installed on your local machine:
 1. **Clone the repository:**
 
    ```bash
-   git clone <repository_url>
+## Getting Started
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/nazmul199512/link-harvester.git
+cd link-harvester
+
+cp .env.example .env
+
+
+### Build and Start the Containers
+
+docker-compose up --build
+
+
+Accessing the Application
+Web Application: The Laravel application will be accessible at http://localhost:8000.
+Web Server: The Nginx web server will be accessible at http://localhost:8080.
+MySQL Database: MySQL will be running on port 3306.
